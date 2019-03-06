@@ -3,7 +3,9 @@ package com.steelhearts.main.ops;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.steelhearts.main.Configuration;
 import com.steelhearts.main.monitoring.HealthPoints;
 import com.vuforia.CameraDevice;
@@ -65,6 +67,7 @@ public class AutonomousDepot extends LinearOpMode {
     private DcMotor lift;
     private DcMotor arm1;
     private DcMotor arm2;
+    private CRServo claim;
     private HealthPoints hp;
 
     @Override
@@ -84,6 +87,10 @@ public class AutonomousDepot extends LinearOpMode {
         lift = hardwareMap.dcMotor.get("lift");
         arm1 = hardwareMap.dcMotor.get("arm1");
         arm2 = hardwareMap.dcMotor.get("arm2");
+
+        claim = hardwareMap.crservo.get("claim");
+
+        claim.setDirection(CRServo.Direction.REVERSE);
 
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
@@ -259,6 +266,7 @@ public class AutonomousDepot extends LinearOpMode {
                 arm1.setPower(0);
                 arm2.setPower(0);
                 */
+
             } else if (mineralPos == 1) {
                 middleDrive.setPower(-1);
                 sleep(500);
@@ -325,6 +333,10 @@ public class AutonomousDepot extends LinearOpMode {
                 arm2.setPower(0);
                 */
             }
+
+            claim.setPower(1);
+            sleep(1000);
+            claim.setPower(0);
 
         }
         if (tfod != null) {
