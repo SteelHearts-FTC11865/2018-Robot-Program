@@ -89,7 +89,6 @@ public class AutonomousDepot extends LinearOpMode {
         arm2 = hardwareMap.dcMotor.get("arm2");
 
         claim = hardwareMap.crservo.get("claim");
-
         claim.setDirection(CRServo.Direction.REVERSE);
 
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
