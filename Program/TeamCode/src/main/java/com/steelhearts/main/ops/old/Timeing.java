@@ -6,8 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
-import com.steelhearts.main.monitoring.HealthPoints;
-import com.steelhearts.main.monitoring.SpeedCap;
+import com.steelhearts.main.utils.HealthPoints;
 
 @TeleOp(name="Lift Timing", group="Linear Opmode")
 @Disabled

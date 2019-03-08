@@ -1,22 +1,18 @@
 package com.steelhearts.main.ops;
 
-import android.hardware.Camera;
-
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.steelhearts.main.Configuration;
-import com.steelhearts.main.monitoring.HealthPoints;
+import com.steelhearts.main.utils.HealthPoints;
 import com.vuforia.CameraDevice;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
-import java.security.Policy;
 import java.util.List;
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Autonomous Crater", group = "Autonomous")
