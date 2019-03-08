@@ -13,34 +13,43 @@ import com.steelhearts.main.utils.SpeedCap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @TeleOp(name="State OP Mode", group="Linear Opmode")
 public class CurrentOP extends LinearOpMode {
+
+    enum CollectorState {
+        IN,
+        OUT,
+        NEUTRAL
+    }
+
+
 
     private RevBlinkinLedDriver blinkin;
     private DcMotor leftDrive;
     private DcMotor rightDrive;
     private DcMotor middleDrive;
     private DcMotor lift;
-    private CRServo armServo;
     private VoltageSensor battery;
 
-    private boolean armMode = false;
+    private CRServo collector;
+
+    private CollectorState collectorState = CollectorState.NEUTRAL;
 
     /**
      * This function is executed when this Op Mode is selected from the Driver Station.
      */
     @Override
     public void runOpMode() {
-
-        FtcDashboard dashboard = FtcDashboard.getInstance();
-        Telemetry dashboardTelemetry = dashboard.getTelemetry();
-
         blinkin = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
         leftDrive = hardwareMap.dcMotor.get("leftDrive");
         rightDrive = hardwareMap.dcMotor.get("rightDrive");
         middleDrive = hardwareMap.dcMotor.get("middleDrive");
         lift = hardwareMap.dcMotor.get("lift");
-        armServo = hardwareMap.crservo.get("armServo");
+
+        collector = hardwareMap.crservo.get("rotatePickup");
 
         battery = hardwareMap.voltageSensor.get("Expansion Hub 1");
 
@@ -48,7 +57,7 @@ public class CurrentOP extends LinearOpMode {
         SpeedCap sc = new SpeedCap();
 
         // Start HealthPoints
-        HealthPoints hp = new HealthPoints(blinkin, dashboardTelemetry);
+        HealthPoints hp = new HealthPoints(blinkin, telemetry);
         hp.start();
         hp.setupHPBatteryMonitor(battery);
 
@@ -58,8 +67,8 @@ public class CurrentOP extends LinearOpMode {
                 // Update LEDS
                 hp.updateBatteryMonitor();
 
-                dashboardTelemetry.addData("Voltage", Math.floor(battery.getVoltage()));
-                dashboardTelemetry.update();
+                telemetry.addData("Voltage", Math.floor(battery.getVoltage()));
+                telemetry.update();
 
                 // Gamepad 1 Controls
 
@@ -67,40 +76,49 @@ public class CurrentOP extends LinearOpMode {
                 leftDrive.setPower(-sc.capLeftDrive(gamepad1, Configuration.LEFT_WHEEL_SPEED_LIMIT));
                 rightDrive.setPower(sc.capRightDrive(gamepad1, Configuration.RIGHT_WHEEL_SPEED_LIMIT));
 
-                dashboardTelemetry.addData("Left Wheel Power", leftDrive.getPower());
-                dashboardTelemetry.addData("Right Wheel Power", rightDrive.getPower());
+                telemetry.addData("Left Wheel Power", leftDrive.getPower());
+                telemetry.addData("Right Wheel Power", rightDrive.getPower());
 
                 // Set Middle Wheel Speed
                 if (gamepad1.dpad_left ){
                     middleDrive.setPower(Configuration.SIDE_WHEEL_SPEED_LIMIT);
-                    dashboardTelemetry.addData("Middle Drive Power", middleDrive.getPower());
+                    telemetry.addData("Middle Drive Power", middleDrive.getPower());
                 } else if (gamepad1.dpad_right) {
                     middleDrive.setPower(-Configuration.SIDE_WHEEL_SPEED_LIMIT);
-                    dashboardTelemetry.addData("Middle Drive Power", middleDrive.getPower());
+                    telemetry.addData("Middle Drive Power", middleDrive.getPower());
                 } else {
                     middleDrive.setPower(0);
-                    dashboardTelemetry.addData("Middle Drive Power", middleDrive.getPower());
+                    telemetry.addData("Middle Drive Power", middleDrive.getPower());
                 }
 
                 // Gamepad 2 Controls
 
                 lift.setPower(sc.cap(gamepad2.right_stick_y, Configuration.LIFT_SPEED_LIMIT));
 
-                dashboardTelemetry.addData("Lift Power", lift.getPower());
+                telemetry.addData("Lift Power", lift.getPower());
 
-                if (gamepad2.dpad_left){
-                    armServo.setPower(-0.5);
-                } else if (gamepad2.dpad_right) {
-                    armServo.setPower(0.5);
-                } else {
-                    armServo.setPower(0);
+                switch (collectorState){
+                    case IN:
+                        collector.setPower(1);
+                    case OUT:
+                        collector.setPower(-1);
+                    case NEUTRAL:
+                        collector.setPower(0);
+                }
+
+                if (!gamepad2.left_bumper && !gamepad2.right_bumper){
+                    collectorState = CollectorState.NEUTRAL;
+                } else if (gamepad2.right_bumper){
+                    collectorState = CollectorState.OUT;
+                } else if (gamepad2.left_bumper){
+                    collectorState = CollectorState.IN;
                 }
             }
             hp.stopHPBatteryMonitor();
             try {
                 hp.join();
             } catch (InterruptedException e){
-                dashboardTelemetry.addData("Stacktrace", e.getStackTrace().toString());
+                telemetry.addData("Stacktrace", e.getStackTrace().toString());
                 telemetry.update();
             }
         }
