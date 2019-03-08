@@ -286,6 +286,13 @@ public class AutonomousDepot extends LinearOpMode {
                 sleep(200);
                 leftDrive.setPower(0);
                 rightDrive.setPower(0);
+
+                leftDrive.setPower(-1);
+                rightDrive.setPower(-1);
+                sleep(3000);
+                leftDrive.setPower(0);
+                rightDrive.setPower(0);
+
             } else if (mineralPos == 0) {
                 middleDrive.setPower(-1);
                 sleep(Configuration.LEFT_ALIGNING_TIME);
@@ -334,7 +341,7 @@ public class AutonomousDepot extends LinearOpMode {
             }
 
             claim.setPower(1);
-            sleep(1000);
+            sleep(2000);
             claim.setPower(0);
 
         }
