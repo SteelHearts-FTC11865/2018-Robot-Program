@@ -26,7 +26,6 @@ public class CurrentOP extends LinearOpMode {
     }
 
 
-
     private RevBlinkinLedDriver blinkin;
     private DcMotor leftDrive;
     private DcMotor rightDrive;
@@ -34,6 +33,9 @@ public class CurrentOP extends LinearOpMode {
     private DcMotor lift;
     private VoltageSensor battery;
 
+    private DcMotor extend;
+
+    private CRServo rotate;
     private CRServo collector;
 
     private CollectorState collectorState = CollectorState.NEUTRAL;
@@ -50,6 +52,8 @@ public class CurrentOP extends LinearOpMode {
         lift = hardwareMap.dcMotor.get("lift");
 
         collector = hardwareMap.crservo.get("rotatePickup");
+        extend = hardwareMap.dcMotor.get("arm");
+        rotate = hardwareMap.crservo.get("rotateArm");
 
         battery = hardwareMap.voltageSensor.get("Expansion Hub 1");
 
@@ -106,13 +110,16 @@ public class CurrentOP extends LinearOpMode {
                         collector.setPower(0);
                 }
 
-                if (!gamepad2.left_bumper && !gamepad2.right_bumper){
+                if ((!gamepad2.left_bumper && !gamepad2.right_bumper) || (gamepad2.left_bumper && gamepad2.right_bumper)){
                     collectorState = CollectorState.NEUTRAL;
                 } else if (gamepad2.right_bumper){
                     collectorState = CollectorState.OUT;
                 } else if (gamepad2.left_bumper){
                     collectorState = CollectorState.IN;
                 }
+
+                extend.setPower(gamepad2.left_stick_x / 0.3);
+                rotate.setPower(gamepad2.right_stick_x);
             }
             hp.stopHPBatteryMonitor();
             try {
