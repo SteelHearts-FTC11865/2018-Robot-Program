@@ -31,8 +31,10 @@ public class CurrentOP extends LinearOpMode {
     private DcMotor rightDrive;
     private DcMotor middleDrive;
     private DcMotor lift;
+    private DcMotor lift2;
     private VoltageSensor battery;
 
+    private DcMotor liftArm;
     private DcMotor extend;
 
     private CRServo rotate;
@@ -50,10 +52,12 @@ public class CurrentOP extends LinearOpMode {
         rightDrive = hardwareMap.dcMotor.get("rightDrive");
         middleDrive = hardwareMap.dcMotor.get("middleDrive");
         lift = hardwareMap.dcMotor.get("lift");
+        lift2 = hardwareMap.dcMotor.get("lift2");
 
-        collector = hardwareMap.crservo.get("rotatePickup");
-        extend = hardwareMap.dcMotor.get("arm");
-        rotate = hardwareMap.crservo.get("rotateArm");
+        collector = hardwareMap.crservo.get("pickup");
+        rotate = hardwareMap.crservo.get("rotatePickup");
+        extend = hardwareMap.dcMotor.get("extendArm");
+        liftArm = hardwareMap.dcMotor.get("liftArm");
 
         battery = hardwareMap.voltageSensor.get("Expansion Hub 1");
 
@@ -97,9 +101,26 @@ public class CurrentOP extends LinearOpMode {
 
                 // Gamepad 2 Controls
 
-                lift.setPower(sc.cap(gamepad2.right_stick_y, Configuration.LIFT_SPEED_LIMIT));
+                if (gamepad2.x) {
+                    lift2.setPower(0.55);
+                    lift.setPower(0.55);
+                } else if (gamepad2.y) {
+                    lift.setPower(-0.55);
+                    lift2.setPower(-0.55);
+                } else {
+                    lift.setPower(0);
+                    lift2.setPower(0);
+                }
 
                 telemetry.addData("Lift Power", lift.getPower());
+
+                if (gamepad2.right_bumper) {
+                    collectorState = CollectorState.OUT;
+                } else if (gamepad2.left_bumper) {
+                    collectorState = CollectorState.IN;
+                } else {
+                    collectorState = CollectorState.NEUTRAL;
+                }
 
                 switch (collectorState){
                     case IN:
@@ -108,18 +129,19 @@ public class CurrentOP extends LinearOpMode {
                         collector.setPower(-1);
                     case NEUTRAL:
                         collector.setPower(0);
+                    default:
+                        collector.setPower(0);
                 }
 
-                if ((!gamepad2.left_bumper && !gamepad2.right_bumper) || (gamepad2.left_bumper && gamepad2.right_bumper)){
-                    collectorState = CollectorState.NEUTRAL;
-                } else if (gamepad2.right_bumper){
-                    collectorState = CollectorState.OUT;
-                } else if (gamepad2.left_bumper){
-                    collectorState = CollectorState.IN;
-                }
+                if (gamepad2.dpad_up)
+                    extend.setPower(0.6);
+                else if (gamepad2.dpad_down)
+                    extend.setPower(-0.6);
+                else
+                    extend.setPower(0);
 
-                extend.setPower(gamepad2.left_stick_x / 0.3);
-                rotate.setPower(gamepad2.right_stick_x);
+                liftArm.setPower(gamepad2.left_stick_y);
+                rotate.setPower(gamepad2.right_stick_y);
             }
             hp.stopHPBatteryMonitor();
             try {
