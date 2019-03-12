@@ -40,7 +40,7 @@ public class CurrentOP extends LinearOpMode {
     private CRServo rotate;
     private CRServo collector;
 
-    private CollectorState collectorState = CollectorState.NEUTRAL;
+    private CollectorState collectorState;
 
     /**
      * This function is executed when this Op Mode is selected from the Driver Station.
@@ -116,12 +116,15 @@ public class CurrentOP extends LinearOpMode {
 
                 if (gamepad2.right_bumper) {
                     collectorState = CollectorState.OUT;
+                    collector.setPower(-1);
                 } else if (gamepad2.left_bumper) {
                     collectorState = CollectorState.IN;
+                    collector.setPower(1);
                 } else {
                     collectorState = CollectorState.NEUTRAL;
+                    collector.setPower(0);
                 }
-
+/*
                 switch (collectorState){
                     case IN:
                         collector.setPower(1);
@@ -132,7 +135,8 @@ public class CurrentOP extends LinearOpMode {
                     default:
                         collector.setPower(0);
                 }
-
+*/
+                telemetry.addData("Collector State", collectorState);
                 if (gamepad2.dpad_up)
                     extend.setPower(0.6);
                 else if (gamepad2.dpad_down)
