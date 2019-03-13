@@ -64,8 +64,7 @@ public class AutonomousDepot extends LinearOpMode {
     private DcMotor rightDrive;
     private DcMotor middleDrive;
     private DcMotor lift;
-    private DcMotor arm1;
-    private DcMotor arm2;
+    private DcMotor lift2;
     private CRServo claim;
     private HealthPoints hp;
 
@@ -84,8 +83,7 @@ public class AutonomousDepot extends LinearOpMode {
         rightDrive = hardwareMap.dcMotor.get("rightDrive");
         middleDrive = hardwareMap.dcMotor.get("middleDrive");
         lift = hardwareMap.dcMotor.get("lift");
-        arm1 = hardwareMap.dcMotor.get("arm1");
-        arm2 = hardwareMap.dcMotor.get("arm2");
+        lift2 = hardwareMap.dcMotor.get("lift2");
 
         claim = hardwareMap.crservo.get("claim");
         claim.setDirection(CRServo.Direction.REVERSE);
@@ -196,8 +194,10 @@ public class AutonomousDepot extends LinearOpMode {
             //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
             lift.setPower(-0.8);
-            sleep(Configuration.ARM_LOWER_TIME - 200);
+            lift2.setPower(-0.8);
+            sleep(Configuration.ARM_LOWER_TIME);
             lift.setPower(0);
+            lift2.setPower(0);
 
             sleep(400);
 

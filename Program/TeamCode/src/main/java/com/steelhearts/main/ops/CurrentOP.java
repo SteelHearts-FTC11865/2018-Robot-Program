@@ -101,12 +101,12 @@ public class CurrentOP extends LinearOpMode {
 
                 // Gamepad 2 Controls
 
-                if (gamepad2.x) {
-                    lift2.setPower(0.55);
-                    lift.setPower(0.55);
-                } else if (gamepad2.y) {
-                    lift.setPower(-0.55);
-                    lift2.setPower(-0.55);
+                if (gamepad2.left_trigger != 0) {
+                    lift2.setPower(gamepad2.left_trigger);
+                    lift.setPower(gamepad2.left_trigger);
+                } else if (gamepad2.right_trigger != 0) {
+                    lift.setPower(-gamepad2.right_trigger);
+                    lift2.setPower(-gamepad2.right_trigger);
                 } else {
                     lift.setPower(0);
                     lift2.setPower(0);
