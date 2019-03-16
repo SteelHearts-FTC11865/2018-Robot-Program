@@ -206,7 +206,7 @@ public class AutonomousDepot extends LinearOpMode {
 
             leftDrive.setPower(-1);
             rightDrive.setPower(1);
-            sleep(50);
+            sleep(100);
             leftDrive.setPower(0);
             rightDrive.setPower(0);
 
@@ -266,7 +266,7 @@ public class AutonomousDepot extends LinearOpMode {
 
                 leftDrive.setPower(-1);
                 rightDrive.setPower(1);
-                sleep(600);
+                sleep(1000);
                 leftDrive.setPower(0);
                 rightDrive.setPower(0);
 
@@ -282,7 +282,7 @@ public class AutonomousDepot extends LinearOpMode {
 
                 leftDrive.setPower(-1);
                 rightDrive.setPower(1);
-                sleep(Configuration.FORWARD_TO_HIT_TIME - 400);
+                sleep(Configuration.FORWARD_TO_HIT_TIME + 400);
                 leftDrive.setPower(0);
                 rightDrive.setPower(0);
                 /*
@@ -307,15 +307,18 @@ public class AutonomousDepot extends LinearOpMode {
                 arm2.setPower(0);
                 */
 
-                leftDrive.setPower(1);
-                rightDrive.setPower(1);
-                sleep(450);
-                leftDrive.setPower(0);
+                sleep(400);
+                middleDrive.setPower(-1);
+                rightDrive.setPower(0.7);
+                sleep(100);
+                middleDrive.setPower(0);
                 rightDrive.setPower(0);
+
+                sleep(400);
 
                 leftDrive.setPower(-1);
                 rightDrive.setPower(-1);
-                sleep(800);
+                sleep(1000);
                 leftDrive.setPower(0);
                 rightDrive.setPower(0);
 
@@ -328,13 +331,13 @@ public class AutonomousDepot extends LinearOpMode {
 
                 sleep(400);
 
-                leftDrive.setPower(-1);
-                rightDrive.setPower(-1);
-                sleep(200);
-                leftDrive.setPower(0);
-                rightDrive.setPower(0);
+                //leftDrive.setPower(-1);
+                //rightDrive.setPower(-1);
+                //sleep(200);
+                //leftDrive.setPower(0);
+                //rightDrive.setPower(0);
 
-                sleep(400);
+                //sleep(400);
 
                 leftDrive.setPower(-1);
                 rightDrive.setPower(1);
