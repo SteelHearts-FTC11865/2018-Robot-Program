@@ -88,6 +88,8 @@ public class AutonomousDepot extends LinearOpMode {
         claim = hardwareMap.crservo.get("claim");
         claim.setDirection(CRServo.Direction.REVERSE);
 
+        blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.SINELON_LAVA_PALETTE);
+
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
         initVuforia();
@@ -97,6 +99,7 @@ public class AutonomousDepot extends LinearOpMode {
         } else {
             telemetry.addData("Sorry!", "This device is not compatible with TFOD");
             telemetry.update();
+            hp.error();
             sleep(500);
             stop();
         }
@@ -195,15 +198,52 @@ public class AutonomousDepot extends LinearOpMode {
 
             lift.setPower(-0.8);
             lift2.setPower(-0.8);
-            sleep(Configuration.ARM_LOWER_TIME);
+            sleep(Configuration.ARM_LOWER_TIME - 200);
             lift.setPower(0);
             lift2.setPower(0);
 
             sleep(400);
 
+            leftDrive.setPower(-1);
+            rightDrive.setPower(1);
+            sleep(50);
+            leftDrive.setPower(0);
+            rightDrive.setPower(0);
+
+            sleep(400);
+
+            lift.setPower(-0.8);
+            lift2.setPower(-0.8);
+            sleep(100);
+            lift.setPower(0);
+            lift2.setPower(0);
+
+            sleep(400);
+
+            //rightDrive.setPower(-1);
+            //middleDrive.setPower(1);
+            //sleep(500);
+            //rightDrive.setPower(0);
+            //middleDrive.setPower(0);
+
+            //leftDrive.setPower(-1);
+            //rightDrive.setPower(1);
+            //sleep(50);
+            //leftDrive.setPower(0);
+            //rightDrive.setPower(0);
+
+
+            sleep(400);
+
+            //leftDrive.setPower(-1);
+            //rightDrive.setPower(-1);
             middleDrive.setPower(0.8);
+            rightDrive.setPower(-0.5);
             sleep(Configuration.DEHOOK_LEFT_TIME);
             middleDrive.setPower(0);
+            rightDrive.setPower(0);
+            //leftDrive.setPower(0);
+            //rightDrive.setPower(0);
 
             sleep(400);
 
@@ -217,14 +257,16 @@ public class AutonomousDepot extends LinearOpMode {
                 sleep(400);
 
                 middleDrive.setPower(1);
+                rightDrive.setPower(-0.6);
                 sleep(Configuration.RIGHT_ALIGNING_TIME);
+                rightDrive.setPower(0);
                 middleDrive.setPower(0);
 
                 sleep(400);
 
                 leftDrive.setPower(-1);
                 rightDrive.setPower(1);
-                sleep(300);
+                sleep(600);
                 leftDrive.setPower(0);
                 rightDrive.setPower(0);
 
@@ -271,10 +313,26 @@ public class AutonomousDepot extends LinearOpMode {
                 leftDrive.setPower(0);
                 rightDrive.setPower(0);
 
+                leftDrive.setPower(-1);
+                rightDrive.setPower(-1);
+                sleep(800);
+                leftDrive.setPower(0);
+                rightDrive.setPower(0);
+
             } else if (mineralPos == 1) {
                 middleDrive.setPower(-1);
+                rightDrive.setPower(0.7);
                 sleep(500);
                 middleDrive.setPower(0);
+                rightDrive.setPower(0);
+
+                sleep(400);
+
+                leftDrive.setPower(-1);
+                rightDrive.setPower(-1);
+                sleep(200);
+                leftDrive.setPower(0);
+                rightDrive.setPower(0);
 
                 sleep(400);
 
@@ -294,25 +352,25 @@ public class AutonomousDepot extends LinearOpMode {
 
                 leftDrive.setPower(-1);
                 rightDrive.setPower(-1);
-                sleep(3000);
+                sleep(800);
                 leftDrive.setPower(0);
                 rightDrive.setPower(0);
 
             } else if (mineralPos == 0) {
-                leftDrive.setPower(0.1);
+                rightDrive.setPower(-0.6);
                 middleDrive.setPower(-1);
                 sleep(Configuration.LEFT_ALIGNING_TIME);
                 middleDrive.setPower(0);
-                leftDrive.setPower(0);
-
+                rightDrive.setPower(0);
+                
                 /*
                 leftDrive.setPower(-1);
                 rightDrive.setPower(-1);
                 sleep(400);
                 leftDrive.setPower(0);
                 rightDrive.setPower(0);
-                */
 
+                 */
                 //leftDrive.setPower(1);
                 //rightDrive.setPower(1);
                 //sleep(500);
@@ -355,10 +413,12 @@ public class AutonomousDepot extends LinearOpMode {
             }
 
             claim.setPower(1);
-            sleep(2000);
+            sleep(1500);
+            claim.setPower(-1);
+            sleep(1500);
             claim.setPower(0);
-
         }
+
         if (tfod != null) {
             tfod.shutdown();
         }
