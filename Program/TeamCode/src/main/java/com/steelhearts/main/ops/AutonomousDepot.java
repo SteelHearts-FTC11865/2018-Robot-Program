@@ -325,7 +325,7 @@ public class AutonomousDepot extends LinearOpMode {
             } else if (mineralPos == 1) {
                 middleDrive.setPower(-1);
                 rightDrive.setPower(0.7);
-                sleep(500);
+                sleep(400);
                 middleDrive.setPower(0);
                 rightDrive.setPower(0);
 
@@ -341,7 +341,7 @@ public class AutonomousDepot extends LinearOpMode {
 
                 leftDrive.setPower(-1);
                 rightDrive.setPower(1);
-                sleep(Configuration.FORWARD_TO_HIT_TIME);
+                sleep(Configuration.FORWARD_TO_HIT_TIME + 500);
                 leftDrive.setPower(0);
                 rightDrive.setPower(0);
 
