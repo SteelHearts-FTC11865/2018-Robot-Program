@@ -88,13 +88,13 @@ public class CurrentOP extends LinearOpMode {
                 telemetry.addData("Right Wheel Power", rightDrive.getPower());
 
                 // Set Middle Wheel Speed
-                if (rightDrive.getPower() <= 0.1 && gamepad1.dpad_left) {
+                if (/*rightDrive.getPower() <= 0.1 &&*/ gamepad1.dpad_left) {
                     middleDrive.setPower(Configuration.SIDE_WHEEL_SPEED_LIMIT);
-                    rightDrive.setPower(-0.6);
+                    rightDrive.setPower(-0.8);
                     telemetry.addData("Middle Drive Power", middleDrive.getPower());
-                } else if (rightDrive.getPower() <= 0.1 && gamepad1.dpad_right) {
+                } else if (/*rightDrive.getPower() <= 0.1 &&*/ gamepad1.dpad_right) {
                     middleDrive.setPower(-Configuration.SIDE_WHEEL_SPEED_LIMIT);
-                    rightDrive.setPower(0.6);
+                    rightDrive.setPower(0.8);
                     telemetry.addData("Middle Drive Power", middleDrive.getPower());
                 } else {
                     middleDrive.setPower(0);
@@ -149,7 +149,7 @@ public class CurrentOP extends LinearOpMode {
                 else
                     extend.setPower(0);
 
-                liftArm.setPower(gamepad2.left_stick_y);
+                liftArm.setPower(-gamepad2.left_stick_y);
                 rotate.setPower(gamepad2.right_stick_y);
             }
             hp.stopHPBatteryMonitor();
