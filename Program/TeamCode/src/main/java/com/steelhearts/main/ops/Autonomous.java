@@ -63,8 +63,9 @@ public class Autonomous extends LinearOpMode {
     private DcMotor rightDrive;
     private DcMotor middleDrive;
     private DcMotor lift;
-    private DcMotor arm1;
-    private DcMotor arm2;
+    private DcMotor lift2;
+    //private DcMotor arm1;
+    //private DcMotor arm2;
     private HealthPoints hp;
 
     @Override
@@ -82,8 +83,9 @@ public class Autonomous extends LinearOpMode {
         rightDrive = hardwareMap.dcMotor.get("rightDrive");
         middleDrive = hardwareMap.dcMotor.get("middleDrive");
         lift = hardwareMap.dcMotor.get("lift");
-        arm1 = hardwareMap.dcMotor.get("arm1");
-        arm2 = hardwareMap.dcMotor.get("arm2");
+        lift2 = hardwareMap.dcMotor.get("lift2");
+        //arm1 = hardwareMap.dcMotor.get("arm1");
+        //arm2 = hardwareMap.dcMotor.get("arm2");
 
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
@@ -191,8 +193,26 @@ public class Autonomous extends LinearOpMode {
             //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
             lift.setPower(-0.8);
+            lift2.setPower(-0.8);
             sleep(Configuration.ARM_LOWER_TIME - 200);
             lift.setPower(0);
+            lift2.setPower(0);
+
+            sleep(400);
+
+            leftDrive.setPower(-1);
+            rightDrive.setPower(1);
+            sleep(100);
+            leftDrive.setPower(0);
+            rightDrive.setPower(0);
+
+            sleep(400);
+
+            lift.setPower(-0.8);
+            lift2.setPower(-0.8);
+            sleep(100);
+            lift.setPower(0);
+            lift2.setPower(0);
 
             sleep(400);
 
@@ -213,9 +233,19 @@ public class Autonomous extends LinearOpMode {
             if (mineralPos == 2) {
                 sleep(400);
 
+                leftDrive.setPower(-1);
+                rightDrive.setPower(1);
+                sleep(600);
+                leftDrive.setPower(0);
+                rightDrive.setPower(0);
+
+                sleep(400);
+
                 middleDrive.setPower(1);
+                rightDrive.setPower(-0.5);
                 sleep(Configuration.RIGHT_ALIGNING_TIME + 100);
                 middleDrive.setPower(0);
+                rightDrive.setPower(0);
 
                 sleep(400);
 
@@ -263,8 +293,10 @@ public class Autonomous extends LinearOpMode {
                 */
             } else if (mineralPos == 1) {
                 middleDrive.setPower(-1);
-                sleep(500);
+                rightDrive.setPower(0.5);
+                sleep(700);
                 middleDrive.setPower(0);
+                rightDrive.setPower(0);
 
                 sleep(400);
 
@@ -283,8 +315,10 @@ public class Autonomous extends LinearOpMode {
                 rightDrive.setPower(0);
             } else if (mineralPos == 0) {
                 middleDrive.setPower(-1);
+                rightDrive.setPower(0.5);
                 sleep(Configuration.LEFT_ALIGNING_TIME);
                 middleDrive.setPower(0);
+                rightDrive.setPower(0);
 
                 /*
                 leftDrive.setPower(-1);
