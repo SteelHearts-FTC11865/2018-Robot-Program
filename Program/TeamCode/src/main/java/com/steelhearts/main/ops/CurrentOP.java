@@ -90,11 +90,11 @@ public class CurrentOP extends LinearOpMode {
                 // Set Middle Wheel Speed
                 if (/*rightDrive.getPower() <= 0.1 &&*/ gamepad1.dpad_left) {
                     middleDrive.setPower(Configuration.SIDE_WHEEL_SPEED_LIMIT);
-                    rightDrive.setPower(-0.8);
+                    rightDrive.setPower(-0.5);
                     telemetry.addData("Middle Drive Power", middleDrive.getPower());
                 } else if (/*rightDrive.getPower() <= 0.1 &&*/ gamepad1.dpad_right) {
                     middleDrive.setPower(-Configuration.SIDE_WHEEL_SPEED_LIMIT);
-                    rightDrive.setPower(0.8);
+                    rightDrive.setPower(0.5);
                     telemetry.addData("Middle Drive Power", middleDrive.getPower());
                 } else {
                     middleDrive.setPower(0);

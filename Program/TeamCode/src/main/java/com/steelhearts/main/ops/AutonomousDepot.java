@@ -26,7 +26,7 @@ public class AutonomousDepot extends LinearOpMode {
      * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
      * 'parameters.vuforiaLicenseKey' is initialized is for illustration only, and will not function.
      * A Vuforia 'Development' license key, can be obtained free of charge from the Vuforia developer
-     * web site at https://developer.vuforia.com/license-manager.
+     * web site at https://developer.vuforia.com/license-mmanager.
      *
      * Vuforia license keys are always 380 characters long, and look as if they contain mostly
      * random data. As an example, here is a example of a fragment of a valid key:
@@ -220,30 +220,11 @@ public class AutonomousDepot extends LinearOpMode {
 
             sleep(400);
 
-            //rightDrive.setPower(-1);
-            //middleDrive.setPower(1);
-            //sleep(500);
-            //rightDrive.setPower(0);
-            //middleDrive.setPower(0);
-
-            //leftDrive.setPower(-1);
-            //rightDrive.setPower(1);
-            //sleep(50);
-            //leftDrive.setPower(0);
-            //rightDrive.setPower(0);
-
-
-            sleep(400);
-
-            //leftDrive.setPower(-1);
-            //rightDrive.setPower(-1);
-            middleDrive.setPower(0.8);
-            rightDrive.setPower(-0.5);
+            middleDrive.setPower(1);
+            rightDrive.setPower(-0.8);
             sleep(Configuration.DEHOOK_LEFT_TIME);
             middleDrive.setPower(0);
             rightDrive.setPower(0);
-            //leftDrive.setPower(0);
-            //rightDrive.setPower(0);
 
             sleep(400);
 
@@ -254,19 +235,28 @@ public class AutonomousDepot extends LinearOpMode {
             rightDrive.setPower(0);
 
             if (mineralPos == 2) {
+                /*
                 sleep(400);
 
-                middleDrive.setPower(1);
-                rightDrive.setPower(-0.6);
-                sleep(Configuration.RIGHT_ALIGNING_TIME);
+                leftDrive.setPower(-1);
+                rightDrive.setPower(1);
+                sleep(300);
+                leftDrive.setPower(0);
                 rightDrive.setPower(0);
+
+                sleep(400);
+*/
+                middleDrive.setPower(1);
+                rightDrive.setPower(-0.5);
+                sleep(Configuration.RIGHT_ALIGNING_TIME + 100);
                 middleDrive.setPower(0);
+                rightDrive.setPower(0);
 
                 sleep(400);
 
                 leftDrive.setPower(-1);
                 rightDrive.setPower(1);
-                sleep(1000);
+                sleep(400);
                 leftDrive.setPower(0);
                 rightDrive.setPower(0);
 
@@ -274,7 +264,7 @@ public class AutonomousDepot extends LinearOpMode {
 
                 leftDrive.setPower(-1);
                 rightDrive.setPower(-1);
-                sleep(300);
+                sleep(400);
                 leftDrive.setPower(0);
                 rightDrive.setPower(0);
 
@@ -282,7 +272,7 @@ public class AutonomousDepot extends LinearOpMode {
 
                 leftDrive.setPower(-1);
                 rightDrive.setPower(1);
-                sleep(Configuration.FORWARD_TO_HIT_TIME + 400);
+                sleep(Configuration.FORWARD_TO_HIT_TIME - 100);
                 leftDrive.setPower(0);
                 rightDrive.setPower(0);
                 /*
@@ -306,42 +296,18 @@ public class AutonomousDepot extends LinearOpMode {
                 arm1.setPower(0);
                 arm2.setPower(0);
                 */
-
-                sleep(400);
-                middleDrive.setPower(-1);
-                rightDrive.setPower(0.7);
-                sleep(100);
-                middleDrive.setPower(0);
-                rightDrive.setPower(0);
-
-                sleep(400);
-
-                leftDrive.setPower(-1);
-                rightDrive.setPower(-1);
-                sleep(1000);
-                leftDrive.setPower(0);
-                rightDrive.setPower(0);
-
             } else if (mineralPos == 1) {
                 middleDrive.setPower(-1);
-                rightDrive.setPower(0.7);
-                sleep(400);
+                rightDrive.setPower(0.5);
+                sleep(500);
                 middleDrive.setPower(0);
                 rightDrive.setPower(0);
 
                 sleep(400);
-
-                //leftDrive.setPower(-1);
-                //rightDrive.setPower(-1);
-                //sleep(200);
-                //leftDrive.setPower(0);
-                //rightDrive.setPower(0);
-
-                //sleep(400);
 
                 leftDrive.setPower(-1);
                 rightDrive.setPower(1);
-                sleep(Configuration.FORWARD_TO_HIT_TIME + 500);
+                sleep(Configuration.FORWARD_TO_HIT_TIME);
                 leftDrive.setPower(0);
                 rightDrive.setPower(0);
 
@@ -352,45 +318,31 @@ public class AutonomousDepot extends LinearOpMode {
                 sleep(200);
                 leftDrive.setPower(0);
                 rightDrive.setPower(0);
-
-                leftDrive.setPower(-1);
-                rightDrive.setPower(-1);
-                sleep(800);
-                leftDrive.setPower(0);
-                rightDrive.setPower(0);
-
             } else if (mineralPos == 0) {
-                rightDrive.setPower(-0.6);
                 middleDrive.setPower(-1);
+                rightDrive.setPower(0.5);
                 sleep(Configuration.LEFT_ALIGNING_TIME);
                 middleDrive.setPower(0);
                 rightDrive.setPower(0);
-                
+
                 /*
                 leftDrive.setPower(-1);
                 rightDrive.setPower(-1);
                 sleep(400);
                 leftDrive.setPower(0);
                 rightDrive.setPower(0);
-
-                 */
-                //leftDrive.setPower(1);
-                //rightDrive.setPower(1);
-                //sleep(500);
-                //leftDrive.setPower(0);
-                //rightDrive.setPower(0);
-
+                */
                 leftDrive.setPower(-1);
                 rightDrive.setPower(1);
-                sleep(Configuration.FORWARD_TO_HIT_TIME- 200);
+                sleep(Configuration.FORWARD_TO_HIT_TIME);
                 leftDrive.setPower(0);
                 rightDrive.setPower(0);
 
                 sleep(400);
 
-                leftDrive.setPower(-1);
-                rightDrive.setPower(-1);
-                sleep(450);
+                leftDrive.setPower(1);
+                rightDrive.setPower(1);
+                sleep(700);
                 leftDrive.setPower(0);
                 rightDrive.setPower(0);
 
@@ -414,12 +366,13 @@ public class AutonomousDepot extends LinearOpMode {
                 arm2.setPower(0);
                 */
             }
-
+/*
             claim.setPower(1);
             sleep(1500);
             claim.setPower(-1);
             sleep(1500);
             claim.setPower(0);
+  */
         }
 
         if (tfod != null) {

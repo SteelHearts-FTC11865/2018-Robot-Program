@@ -235,7 +235,7 @@ public class Autonomous extends LinearOpMode {
 
                 leftDrive.setPower(-1);
                 rightDrive.setPower(1);
-                sleep(600);
+                sleep(500);
                 leftDrive.setPower(0);
                 rightDrive.setPower(0);
 
